@@ -10,6 +10,7 @@ import com.drew.metadata.Tag;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Array;
@@ -71,8 +72,6 @@ public class Image {
             System.out.println(e);
         }
 
-
-
     }
 
     public Image(String initPath, int initHeight, int initWidth, Metadata initExif, String initFormat, Boolean initIsSaved, BufferedImage initImg){
@@ -92,6 +91,10 @@ public class Image {
 
     public int getWidth() {
         return width;
+    }
+
+    public BufferedImage getImg() {
+        return img;
     }
 
     public TreeMap<String,String> getAttributes(){
@@ -119,7 +122,31 @@ public class Image {
         return attributes;
     }
 
-    private void printExif(){
+    public String getPath() {
+        return path;
+    }
 
+    public void save(String pathExt){
+        String pathFilename;
+        if (pathExt != null) {
+            //Pattern pattern = Pattern.compile("[\\w%?_:;'\\\\`]+\\.", Pattern.UNICODE_CHARACTER_CLASS);
+            //Matcher m = pattern.matcher(path);
+            //String fileName = m.group(0);
+            String[] arr = path.split("/");
+            String fileName = arr[arr.length-1].split("\\.")[0];
+            pathFilename = pathExt + fileName;
+        }
+        else {
+            pathFilename = path.split("\\.")[0];
+        }
+        Long time = System.currentTimeMillis();
+        path = pathFilename + "_" + time.toString() + "." + format;
+        File saving = new File(path);
+        try {
+            ImageIO.write(img, format, saving);
+        }
+        catch (Exception e){
+            System.err.println(e);
+        }
     }
 }
