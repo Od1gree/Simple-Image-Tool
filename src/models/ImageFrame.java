@@ -34,7 +34,7 @@ public class ImageFrame extends ImageList{
                     int width = currentImg.getWidth();
                     int height = currentImg.getHeight();
                     BufferedImage imgBuffer =
-                            filter.useFilter(currentImg.getImg(), width, height);
+                            filter.useFilter(currentImg.getImg(), width, height, format);
                     Image newImage = new Image(currentImg.getPath(),
                             height,width, null, format, false, imgBuffer);
                     newFrame.append(newImage);

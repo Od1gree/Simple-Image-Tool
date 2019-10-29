@@ -11,6 +11,6 @@ public interface Filter {
     public String getName();
     public filterType getType();
     public int getId();
-    public BufferedImage useFilter(BufferedImage img, int width, int height);
+    public BufferedImage useFilter(BufferedImage img, int width, int heighti, String format);
 
 }

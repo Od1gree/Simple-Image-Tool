@@ -146,7 +146,7 @@ public class Image {
             ImageIO.write(img, format, saving);
         }
         catch (Exception e){
-            System.err.println(e);
+            System.err.println(e.toString());
         }
     }
 }
