@@ -5,22 +5,22 @@ import java.util.TreeMap;
 
 public class entrance {
     public static void main(String[] args){
-        String path = "/Users/naizhengwang/Downloads/test_set/DSC_0890.jpg";
+        String path = "/Users/od1gree/Downloads/test_set/DSC_0890.jpg";
         Image img = new Image(path);
         TreeMap<String,String> map = img.getAttributes();
         ImageFrame imageFrame = new ImageFrame();
         imageFrame.append(img);
 
-        String path1 = "/Users/naizhengwang/Downloads/test_set/move.gif";
+        String path1 = "/Users/Od1gree/Downloads/test_set/move.gf";
         Image img1 = new Image(path1);
         imageFrame.append(img1);
 
-        Filter redFilter = new RGBFilter(123);
-        ((RGBFilter)redFilter).setFilter(0, -100, 0, -100);
+        Filter redFilter = new RGBFilter("testFilter");
+        ((RGBFilter)redFilter).setFilter(0, -100, 50, -100);
+        FilterList filterlist = new FilterList();
+        filterlist.addFilter(redFilter);
         boolean[] choiceList = {true, true};
-        imageFrame.addFilter(redFilter);
-        ImageFrame newFrame = imageFrame.edit(choiceList, redFilter.getId(), "jpg");
-        newFrame.addFilter(redFilter);
-        newFrame.save(choiceList,"/Users/naizhengwang/Downloads/test_set/ttt/");
+        ImageFrame newFrame = imageFrame.edit(choiceList, redFilter, "jpg");
+        newFrame.save(choiceList,"/Users/Od1gree/Downloads/test_set/ttt/");
     }
 }

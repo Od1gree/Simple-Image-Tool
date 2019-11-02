@@ -4,7 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
-public class RGBFilter implements Filter {
+public class RGBFilter implements Filter, java.io.Serializable{
     private int r;
     private int g;
     private int b;
@@ -12,12 +12,16 @@ public class RGBFilter implements Filter {
     private String name;
     private int id;
 
-    public RGBFilter(int initId) {
-        id = initId;
+    public RGBFilter(String initName) {
+        name = initName;
     }
 
     public void setName(String initName) {
         name = initName;
+    }
+
+    public void setId(int initId) {
+        id = initId;
     }
 
     public filterType getType() {
