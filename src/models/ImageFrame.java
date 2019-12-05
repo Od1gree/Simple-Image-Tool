@@ -11,6 +11,17 @@ public class ImageFrame extends ImageList{
     }
 
 
+    /**
+     * use filter to edit current picture.
+     * @param choice
+     * chosen pictures.
+     * @param filter
+     * the filter to edit the picture.
+     * @param format
+     * format of saved file type.
+     * @return
+     * the edited set of pictures.
+     */
     public ImageFrame edit(boolean[] choice, Filter filter, String format){
         if(choice.length != imgList.size()){
             System.err.println("Error: length of choice does not match length of image list");
@@ -41,6 +52,13 @@ public class ImageFrame extends ImageList{
         return newFrame;
     }
 
+    /**
+     * save picture using the given path.
+     * @param choice
+     * choice to save files.
+     * @param path
+     * path to a folder.
+     */
     public void save(boolean[] choice, String path){
         int indexOfChoice = 0;
         for (Image currentImg : imgList) {

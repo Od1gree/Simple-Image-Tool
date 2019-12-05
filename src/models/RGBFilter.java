@@ -75,6 +75,13 @@ public class RGBFilter implements Filter, java.io.Serializable{
         return (color >> 24) & 0xff;
     }
 
+    /**
+     * edit each pixel according to the filter, set alpha=0xFF.
+     * @param color
+     * pixel to be edited, formaat: argb from high-end to low-end.
+     * @return
+     * edited int pixel
+     */
     public int editPixelBGR(int color) {
         int result = change((color & 0x000000FF), b);
         result |= (change((color & 0x0000FF00) >> 8, g) << 8);
@@ -83,6 +90,13 @@ public class RGBFilter implements Filter, java.io.Serializable{
         return result;
     }
 
+    /**
+     * edit each pixel according to the filter, include alpha.
+     * @param color
+     * pixel to be edited, format: argb from high-end to low-end.
+     * @return
+     * edited int pixel
+     */
     public int editPixelAGBR(int color) {
         int result = change((color & 0x000000FF), b);
         result |= (change((color >> 8) & 0xFF, g) << 8);
@@ -91,6 +105,15 @@ public class RGBFilter implements Filter, java.io.Serializable{
         return result;
     }
 
+    /**
+     * edit the value of colour channel(eg: r,g,b) of a pixel.
+     * @param original
+     * original channel value.
+     * @param variety
+     * the filter value of that channel
+     * @return
+     * the result channel value.
+     */
     private int change(int original, int variety) {
         int result = original + variety;
         if (result > 255) {
@@ -103,10 +126,28 @@ public class RGBFilter implements Filter, java.io.Serializable{
 
     }
 
+    /**
+     * use this filter to edit a BufferedImage
+     * @param img
+     * BufferedImage which only contains pixel information.
+     * @param width
+     * width of the image(for convenience usage)
+     * @param height
+     * height of the image(for convecience usage)
+     * @param format
+     * format of the original image.
+     * it ensures whether it saves the alpha channel.
+     * @return
+     * BufferedImage
+     */
     @Override
     public BufferedImage useFilter(BufferedImage img, int width, int height, String format) {
-        int[] pinels = img.getRGB(0, 0, width, height, null, 0, width);
         int imgType = img.getType();
+        if (imgType == BufferedImage.TYPE_BYTE_GRAY){
+            return null;
+        }
+        int[] pinels = img.getRGB(0, 0, width, height, null, 0, width);
+
         System.out.println("img type: " + imgType);
         BufferedImage newImg;
         int maxLength = pinels.length;

@@ -10,7 +10,6 @@ import com.drew.metadata.Tag;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Array;
@@ -29,6 +28,11 @@ public class Image {
     private Boolean isSaved;
     private BufferedImage img;
 
+    /**
+     * create a image object from existed file.
+     * @param initPath
+     * path of the file.
+     */
     public Image(String initPath){
         //从目录中生成
         isSaved = true;
@@ -74,6 +78,23 @@ public class Image {
 
     }
 
+    /**
+     * create an image object from memory.
+     * @param initPath
+     * the path to be saved, this path should include folder and filenamt.format
+     * @param initHeight
+     * height of the image
+     * @param initWidth
+     * width of the image
+     * @param initExif
+     * the affiliated information of the image.
+     * @param initFormat
+     * the format to be save
+     * @param initIsSaved
+     * the flag indicates whether it is saved to filesystem.
+     * @param initImg
+     * the BufferedImage type of pixel.
+     */
     public Image(String initPath, int initHeight, int initWidth, Metadata initExif, String initFormat, Boolean initIsSaved, BufferedImage initImg){
         // generated from Frame.edit()
         path = initPath;
@@ -97,6 +118,15 @@ public class Image {
         return img;
     }
 
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    /**
+     * get the K-V set of attribute information.
+     * @return
+     * TreeMap<String, String>
+     */
     public TreeMap<String,String> getAttributes(){
         TreeMap<String, String> attributes = new TreeMap<String, String>();
         for (Directory directory : exif.getDirectories()){
@@ -126,6 +156,11 @@ public class Image {
         return path;
     }
 
+    /**
+     * save the image to a path.
+     * @param pathExt
+     * String folder name.
+     */
     public void save(String pathExt){
         String pathFilename;
         if (pathExt != null) {
