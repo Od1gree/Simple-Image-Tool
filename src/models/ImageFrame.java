@@ -5,26 +5,30 @@ import java.util.Iterator;
 import java.util.TreeMap;
 
 public class ImageFrame extends ImageList{
-    private TreeMap<Integer, Filter> filters;
 
     public ImageFrame(){
         super();
-        filters = new TreeMap<>();
     }
 
-    public Boolean addFilter(Filter filter){
-        filters.put(filter.getId(),filter);
-        return true;
-    }
 
-    public ImageFrame edit(boolean[] choice, int filterID, String format){
+    /**
+     * use filter to edit current picture.
+     * @param choice
+     * chosen pictures.
+     * @param filter
+     * the filter to edit the picture.
+     * @param format
+     * format of saved file type.
+     * @return
+     * the edited set of pictures.
+     */
+    public ImageFrame edit(boolean[] choice, Filter filter, String format){
         if(choice.length != imgList.size()){
             System.err.println("Error: length of choice does not match length of image list");
         }
 
         ImageFrame newFrame = new ImageFrame();
 
-        Filter filter = filters.get(filterID);
         filterType type = filter.getType();
 
         int indexOfChoice = 0;
@@ -39,12 +43,22 @@ public class ImageFrame extends ImageList{
                             height,width, null, format, false, imgBuffer);
                     newFrame.append(newImage);
                 }
+                else {
+
+                }
             }
             indexOfChoice++;
         }
         return newFrame;
     }
 
+    /**
+     * save picture using the given path.
+     * @param choice
+     * choice to save files.
+     * @param path
+     * path to a folder.
+     */
     public void save(boolean[] choice, String path){
         int indexOfChoice = 0;
         for (Image currentImg : imgList) {
