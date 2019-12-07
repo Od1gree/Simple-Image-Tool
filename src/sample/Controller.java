@@ -15,7 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.Filter;
 import models.FilterList;
+import models.FilterType;
 import models.ImageFrame;
 
 import javax.swing.*;
@@ -359,8 +361,20 @@ public class Controller {
         for (int i1 = 0; i1 < size; i1++) {
             size2[i]=true;
         }
+
+        Filter choosedFilter;
+        FilterType filterType = //FilterType.RGB or FilterType.GRAY
+        String format =   ; // jpg, png, gif..
+
+
+        if(imageFrame.edit(size2,choosedFilter, format) == null){
+            //exception
+        }
+
+
         imageFrame.save(size2,null);
         
+
 
 
 

@@ -1,6 +1,5 @@
 package models;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
@@ -24,8 +23,8 @@ public class RGBFilter implements Filter, java.io.Serializable{
         id = initId;
     }
 
-    public filterType getType() {
-        return filterType.RGB;
+    public int getType() {
+        return FilterType.RGB;
     }
 
     public String getName() {

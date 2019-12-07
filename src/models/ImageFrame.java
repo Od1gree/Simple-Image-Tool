@@ -29,12 +29,12 @@ public class ImageFrame extends ImageList{
 
         ImageFrame newFrame = new ImageFrame();
 
-        filterType type = filter.getType();
+        int type = filter.getType();
 
         int indexOfChoice = 0;
         for (Image currentImg : imgList) {
             if(choice[indexOfChoice]) {
-                if(type == filterType.RGB){
+                if(type == FilterType.RGB){
                     int width = currentImg.getWidth();
                     int height = currentImg.getHeight();
                     BufferedImage imgBuffer =
@@ -74,8 +74,8 @@ public class ImageFrame extends ImageList{
         }
     }
 
-    public boolean checkFormat(filterType T){
-        if(T == filterType.GRAY) {
+    public boolean checkFormat(int T){
+        if(T == FilterType.GRAY) {
             for (Image currentImg : imgList) {
                 int type = currentImg.getImg().getType();
                 if (type != 11 && type != 12) {

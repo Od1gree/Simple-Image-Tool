@@ -25,8 +25,8 @@ public class YFilter implements Filter{
         return id;
     }
 
-    public filterType getType(){
-        return filterType.GRAY;
+    public int getType(){
+        return FilterType.GRAY;
     }
 
     public String getName(){
