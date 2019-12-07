@@ -351,6 +351,29 @@ public class Controller {
 
     }
 
+    int judgeFilter(){
+        if(fxCfilter1.isSelected()){
+            return 1;
+        }
+        if(fxCfilter2.isSelected()){
+            return 2;
+        }
+        if(fxCfilter3.isSelected()){
+            return 3;
+        }
+
+        if(fxGfilter1.isSelected()){
+            return 4;
+        }
+
+        if(fxGfilter2.isSelected()){
+            return 5;
+        }
+        if(fxCfilter1.isSelected()){
+            return 6;
+        }
+        return 0;
+    }
 
     @FXML
     void save(ActionEvent event) {
@@ -361,18 +384,25 @@ public class Controller {
         for (int i1 = 0; i1 < size; i1++) {
             size2[i]=true;
         }
+        Filter chosedFilter;
+        int filterChooice = judgeFilter();
+        if(filterChooice != 0) {
+            chosedFilter = filterList.getFilter(filterChooice);
+        }
+        else {
+            chosedFilter = null;
+        }
 
-        Filter choosedFilter;
         FilterType filterType = //FilterType.RGB or FilterType.GRAY
         String format =   ; // jpg, png, gif..
 
 
-        if(imageFrame.edit(size2,choosedFilter, format) == null){
+        ImageFrame newFrame = imageFrame.edit(size2,chosedFilter, format)
+        if(newFrame== null){
             //exception
         }
 
-
-        imageFrame.save(size2,null);
+        newFrame.save(size2,null);
         
 
 

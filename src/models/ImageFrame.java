@@ -16,9 +16,9 @@ public class ImageFrame extends ImageList{
      * @param choice
      * chosen pictures.
      * @param filter
-     * the filter to edit the picture.
+     * the filter to edit the picture. Can be null when do not use filter.
      * @param format
-     * format of saved file type.
+     * format of saved file type. Can be null when save as original format.
      * @return
      * the edited set of pictures.
      */
@@ -34,18 +34,13 @@ public class ImageFrame extends ImageList{
         int indexOfChoice = 0;
         for (Image currentImg : imgList) {
             if(choice[indexOfChoice]) {
-                if(type == FilterType.RGB){
                     int width = currentImg.getWidth();
                     int height = currentImg.getHeight();
                     BufferedImage imgBuffer =
                             filter.useFilter(currentImg.getImg(), width, height, format);
                     Image newImage = new Image(currentImg.getPath(),
-                            height,width, null, format, false, imgBuffer);
+                            height,width, null, format != null ? format : currentImg.getFormat(), false, imgBuffer);
                     newFrame.append(newImage);
-                }
-                else {
-
-                }
             }
             indexOfChoice++;
         }
