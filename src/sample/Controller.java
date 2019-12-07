@@ -360,7 +360,7 @@ public class Controller {
             size2[i]=true;
         }
         imageFrame.save(size2,null);
-        
+
 
 
 
