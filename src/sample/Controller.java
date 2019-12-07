@@ -1,11 +1,13 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -13,32 +15,70 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.FilterList;
 import models.ImageFrame;
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
-public class Controller{
-    @FXML
-    private Button hlo;
+public class Controller {
+
+
 
     @FXML
     private VBox big_img;
+
+
+
+    @FXML
+    private Button hlo;
 
     @FXML
     private ListView<String> Image_Info;
 
     @FXML
+    private Button delateImage;
+
+    @FXML
+    private Button fxsave;
+
+
+    @FXML
     private VBox hlobox;
 
-    @FXML
-    private Label hlolabel;
 
     @FXML
-    private Button delateImage;
+    private RadioButton fxGfilter1;
+    @FXML
+    private RadioButton fxGfilter2;
+    @FXML
+    private RadioButton fxGfilter3;
+
+    @FXML
+    private RadioButton fxCfilter1;
+
+    @FXML
+    private RadioButton fxCfilter2;
+
+    @FXML
+    private RadioButton fxCfilter3;
+
+
+    @FXML
+    private RadioButton fxJpeg;
+
+    @FXML
+    private RadioButton fxGif;
+
+    @FXML
+    private RadioButton fxPNG;
+
+
 
     ArrayList<ImageView> imgList = new ArrayList<>();
 
@@ -48,6 +88,9 @@ public class Controller{
     //private  String pass;
 
     private ImageFrame imageFrame =new ImageFrame();
+
+    private FilterList filterList=new FilterList();
+    private ArrayList<String> arrayList = new ArrayList<>();
 
     ImageView currentImg;
 
@@ -65,6 +108,8 @@ public class Controller{
         File file = fil_chooser.showOpenDialog(new Stage());
 
         if (file != null) {
+            arrayList.add(file.getAbsolutePath());
+
 
             System.out.println(file.getAbsolutePath());
             //pass=file.getAbsolutePath();
@@ -122,6 +167,207 @@ public class Controller{
         Image_Info.getItems().clear();
 
     }
+
+
+     //private Label asdf;
+
+//    @FXML
+//    void creatFlist(ActionEvent event) {
+//
+//        fxfilterlist.getItems().add("12122");
+//        fxfilterlist.getItems().add("121243");
+//        fxfilterlist.getItems().add("1214323");
+//        asdf.setText(fxfilterlist.getValue().toString());
+//    }
+
+
+
+    @FXML
+    void jpeg(ActionEvent event) {
+        if(fxPNG.isSelected()){
+        fxPNG.fire();}
+        else if(fxGif.isSelected()){
+            fxGif.fire();
+        }
+        System.out.println("21");
+    }
+
+    @FXML
+    void png(ActionEvent event) {
+        if(fxJpeg.isSelected()){
+            fxJpeg.fire();
+        }
+        else if(fxGif.isSelected()){
+            fxGif.fire();
+        }
+
+    }
+
+    @FXML
+    void gif(ActionEvent event) {
+        if(fxJpeg.isSelected()){
+            fxJpeg.fire();
+        }
+        else if(fxPNG.isSelected()){
+            fxPNG.fire();
+        }
+
+    }
+
+    @FXML
+    void cf1(ActionEvent event) {
+        if(fxCfilter2.isSelected()){
+            fxCfilter2.fire();
+        }
+        if(fxCfilter3.isSelected()){
+            fxCfilter3.fire();
+        }
+
+        if(fxGfilter1.isSelected()){
+            fxGfilter1.fire();
+        }
+
+        if(fxGfilter2.isSelected()){
+            fxGfilter2.fire();
+        }
+        if(fxGfilter3.isSelected()){
+            fxGfilter3.fire();
+        }
+
+    }
+
+    @FXML
+    void cf2(ActionEvent event) {
+        if(fxCfilter1.isSelected()){
+            fxCfilter1.fire();
+        }
+        if(fxCfilter3.isSelected()){
+            fxCfilter3.fire();
+        }
+
+        if(fxGfilter1.isSelected()){
+            fxGfilter1.fire();
+        }
+
+        if(fxGfilter2.isSelected()){
+            fxGfilter2.fire();
+        }
+        if(fxGfilter3.isSelected()){
+            fxGfilter3.fire();
+        }
+
+    }
+
+    @FXML
+    void cf3(ActionEvent event) {
+        if(fxCfilter2.isSelected()){
+            fxCfilter2.fire();
+        }
+        if(fxCfilter1.isSelected()){
+            fxCfilter1.fire();
+        }
+
+        if(fxGfilter1.isSelected()){
+            fxGfilter1.fire();
+        }
+
+        if(fxGfilter2.isSelected()){
+            fxGfilter2.fire();
+        }
+        if(fxGfilter3.isSelected()){
+            fxGfilter3.fire();
+        }
+
+    }
+
+    @FXML
+    void gf1(ActionEvent event) {
+        if(fxCfilter2.isSelected()){
+            fxCfilter2.fire();
+        }
+        if(fxCfilter3.isSelected()){
+            fxCfilter3.fire();
+        }
+
+        if(fxCfilter1 .isSelected()){
+            fxCfilter1.fire();
+        }
+
+        if(fxGfilter2.isSelected()){
+            fxGfilter2.fire();
+        }
+        if(fxGfilter3.isSelected()){
+            fxGfilter3.fire();
+        }
+
+    }
+
+    @FXML
+    void gf2(ActionEvent event) {
+        if(fxCfilter2.isSelected()){
+            fxCfilter2.fire();
+        }
+        if(fxCfilter3.isSelected()){
+            fxCfilter3.fire();
+        }
+
+        if(fxGfilter1.isSelected()){
+            fxGfilter1.fire();
+        }
+
+        if(fxCfilter1.isSelected()){
+            fxCfilter1.fire();
+        }
+        if(fxGfilter3.isSelected()){
+            fxGfilter3.fire();
+        }
+
+    }
+
+    @FXML
+    void gf3(ActionEvent event) {
+        if(fxCfilter2.isSelected()){
+            fxCfilter2.fire();
+        }
+        if(fxCfilter3.isSelected()){
+            fxCfilter3.fire();
+        }
+
+        if(fxGfilter1.isSelected()){
+            fxGfilter1.fire();
+        }
+
+        if(fxGfilter2.isSelected()){
+            fxGfilter2.fire();
+        }
+        if(fxCfilter1.isSelected()){
+            fxCfilter1.fire();
+        }
+
+
+
+
+    }
+
+
+    @FXML
+    void save(ActionEvent event) {
+
+        int size = imgList.size();
+
+        boolean [] size2 = new boolean[size];
+        for (int i1 = 0; i1 < size; i1++) {
+            size2[i]=true;
+        }
+        imageFrame.save(size2,null);
+        
+
+
+
+    }
+
+
+
 
 
 }
