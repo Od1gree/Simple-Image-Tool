@@ -68,5 +68,30 @@ public class ImageFrame extends ImageList{
         }
     }
 
+    public void save(){
+        for (Image currentImg: imgList){
+            currentImg.save(null);
+        }
+    }
+
+    public boolean checkFormat(filterType T){
+        if(T == filterType.GRAY) {
+            for (Image currentImg : imgList) {
+                int type = currentImg.getImg().getType();
+                if (type != 11 && type != 12) {
+                    return false;
+                }
+            }
+        }
+        else{
+            for (Image currentImg : imgList){
+                int type = currentImg.getImg().getType();
+                if (type == 11 || type == 12) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }
