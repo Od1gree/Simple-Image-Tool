@@ -16,9 +16,9 @@ public class ImageFrame extends ImageList{
      * @param choice
      * chosen pictures.
      * @param filter
-     * the filter to edit the picture.
+     * the filter to edit the picture. Can be null when do not use filter.
      * @param format
-     * format of saved file type.
+     * format of saved file type. Can be null when save as original format.
      * @return
      * the edited set of pictures.
      */
@@ -29,23 +29,19 @@ public class ImageFrame extends ImageList{
 
         ImageFrame newFrame = new ImageFrame();
 
-        filterType type = filter.getType();
+        int type = filter.getType();
 
         int indexOfChoice = 0;
         for (Image currentImg : imgList) {
             if(choice[indexOfChoice]) {
-                if(type == filterType.RGB){
                     int width = currentImg.getWidth();
                     int height = currentImg.getHeight();
                     BufferedImage imgBuffer =
                             filter.useFilter(currentImg.getImg(), width, height, format);
+                    if (imgBuffer == null) return null;
                     Image newImage = new Image(currentImg.getPath(),
-                            height,width, null, format, false, imgBuffer);
+                            height,width, null, format != null ? format : currentImg.getFormat(), false, imgBuffer);
                     newFrame.append(newImage);
-                }
-                else {
-
-                }
             }
             indexOfChoice++;
         }
@@ -68,5 +64,30 @@ public class ImageFrame extends ImageList{
         }
     }
 
+    public void save(){
+        for (Image currentImg: imgList){
+            currentImg.save(null);
+        }
+    }
+
+    public boolean checkFormat(int T){
+        if(T == FilterType.GRAY) {
+            for (Image currentImg : imgList) {
+                int type = currentImg.getImg().getType();
+                if (type != 11 && type != 12) {
+                    return false;
+                }
+            }
+        }
+        else{
+            for (Image currentImg : imgList){
+                int type = currentImg.getImg().getType();
+                if (type == 11 || type == 12) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }

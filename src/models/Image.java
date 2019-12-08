@@ -114,6 +114,10 @@ public class Image {
         return width;
     }
 
+    public String getFormat() {
+        return format;
+    }
+
     public BufferedImage getImg() {
         return img;
     }
