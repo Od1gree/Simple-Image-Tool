@@ -29,20 +29,25 @@ public class ImageFrame extends ImageList{
 
         ImageFrame newFrame = new ImageFrame();
 
-        int type = filter.getType();
+        //int type = filter.getType();
 
         int indexOfChoice = 0;
         for (Image currentImg : imgList) {
-            if(choice[indexOfChoice]) {
+            //if(choice[indexOfChoice]) {
                     int width = currentImg.getWidth();
                     int height = currentImg.getHeight();
-                    BufferedImage imgBuffer =
-                            filter.useFilter(currentImg.getImg(), width, height, format);
+                BufferedImage imgBuffer;
+                    if(filter!=null){
+                    imgBuffer =
+                            filter.useFilter(currentImg.getImg(), width, height, format);}
+                    else {
+                        imgBuffer = currentImg.getImg();
+                    }
                     if (imgBuffer == null) return null;
                     Image newImage = new Image(currentImg.getPath(),
                             height,width, null, format != null ? format : currentImg.getFormat(), false, imgBuffer);
                     newFrame.append(newImage);
-            }
+            //}
             indexOfChoice++;
         }
         return newFrame;
